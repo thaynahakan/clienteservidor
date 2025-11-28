@@ -1,89 +1,178 @@
-# Bot do Telegram - cliente/servidor -
-Descrição
+🤖 Bot do Telegram — Sistema Cliente/Servidor com Sockets TCP
 
-Este projeto implementa um sistema cliente/servidor para monitoramento remoto de agentes (clientes) utilizando sockets TCP e integração com um bot do Telegram. O servidor gerencia múltiplos clientes conectados e executa comandos remotamente para coletar informações como histórico de navegação, detalhes do sistema operacional e programas instalados.
+Este projeto implementa um sistema completo de monitoramento remoto baseado em comunicação cliente/servidor via Sockets TCP, integrado a um Bot do Telegram que permite enviar comandos e receber respostas diretamente pelo chat.
 
-Arquitetura do Sistema
+A solução foi pensada para ser simples, funcional e expansível, permitindo gerenciar vários clientes simultaneamente.
 
-Componentes
+🧩 Arquitetura do Sistema
 
-Cliente (Agente): Aplicação que se conecta ao servidor e responde a comandos enviados.
-Servidor: Gerencia conexões de múltiplos clientes e executa comandos recebidos via bot do Telegram.
-Bot do Telegram: Interface para interação com o servidor, permitindo que usuários enviem comandos e recebam respostas diretamente pelo Telegram.
-Fluxo de Comunicação
+O projeto é composto por três partes principais:
 
-O cliente inicia e tenta se conectar ao servidor.
-O servidor aceita a conexão e mantém a comunicação com o cliente.
-O bot do Telegram recebe comandos do usuário e os encaminha para o servidor.
-O servidor processa os comandos, os envia ao cliente e retorna a resposta ao bot do Telegram.
-O bot responde ao usuário no Telegram com as informações solicitadas.
-Funcionalidades
+🔹 Cliente (Agente)
 
-Cliente (Agente)
+Conecta-se automaticamente ao servidor.
 
-Registro Automático: Ao iniciar, o cliente se conecta ao servidor e informa seu hostname, IP e usuário logado.
-Execução em Segundo Plano: O cliente opera continuamente aguardando comandos do servidor.
-Responde a Comandos: O cliente executa comandos recebidos e retorna os resultados ao servidor.
-Reenvio Automático: Em caso de falha de conexão, o cliente tenta se reconectar automaticamente.
-Servidor-bot
+Envia informações do sistema: hostname, IP, usuário logado.
 
-Gerencia Múltiplos Clientes: Aceita conexões de vários agentes simultaneamente.
-Monitoramento Ativo: Mantém o status atualizado dos clientes e detecta quando ficam offline.
-Interação via Telegram: Executa comandos enviados pelo bot do Telegram e retorna os resultados.
-Bot do Telegram
+Aguarda comandos do servidor e responde com os dados solicitados.
 
-Comandos Disponíveis:
-/start - Inicia a interação com o bot.
-/? - Exibe a lista de comandos disponíveis.
-/clientes - Lista os clientes conectados ao servidor.
-/info - Obtém informações detalhadas do sistema do cliente especificado.
-/status - Verifica se o cliente está ativo.
-/ping - Testa a comunicação com o cliente.
-/programas - Lista os programas instalados no cliente.
-/historico - Retorna o histórico de navegação do cliente.
-/usuario - Obtém informações do usuário logado no cliente.
-Tecnologias Utilizadas
+Rebate tenta reconectar caso a conexão caia.
 
-Python 3.x - Linguagem principal.
-Sockets TCP - Comunicação entre cliente e servidor.
-Threading - Gerenciamento de múltiplos clientes simultaneamente.
-API do Telegram - Para interação com o bot.
-Bibliotecas: requests, socket, threading, time, subprocess, platform, os.
-Como Executar o Projeto
+🔹 Servidor
 
-1. Configurar o Servidor
+Aceita múltiplas conexões simultâneas.
 
-Clone o repositório.
-Instale as dependências:
+Roteia comandos enviados pelo bot aos clientes.
+
+Mantém o status (online/offline) dos clientes.
+
+Envia as informações coletadas de volta ao bot.
+
+🔹 Bot do Telegram
+
+Interface principal do administrador.
+
+Recebe comandos, encaminha ao servidor e retorna a resposta.
+
+Permite verificar status, listar clientes, solicitar informações e muito mais.
+
+🔄 Fluxo de Comunicação
+
+O cliente conecta-se ao servidor e registra suas informações.
+
+O bot do Telegram recebe comandos do usuário.
+
+O bot envia esses comandos ao servidor.
+
+O servidor direciona o comando ao cliente correto.
+
+O cliente executa o comando e envia a resposta ao servidor.
+
+O servidor devolve a resposta ao bot.
+
+O bot mostra o resultado ao usuário no Telegram.
+
+✨ Funcionalidades
+🟦 Cliente (Agente)
+
+Registro automático (hostname, IP, usuário).
+
+Execução contínua em segundo plano.
+
+Resposta a comandos remotos:
+
+Informações do sistema
+
+Programas instalados
+
+Histórico de navegação
+
+Status de conexão
+
+Reconexão automática em caso de queda.
+
+🟥 Servidor
+
+Gerencia múltiplas conexões simultâneas (multi-thread).
+
+Mantém a tabela de clientes online/offline.
+
+Roteia comandos para os clientes ativos.
+
+Interface com o bot do Telegram.
+
+🟩 Bot do Telegram
+
+Comandos disponíveis:
+
+Comando	Função
+/start	Inicia interação
+/?	Lista comandos disponíveis
+/clientes	Mostra todos os clientes conectados
+/info	Exibe informações detalhadas do cliente
+/status	Mostra status do cliente
+/ping	Testa comunicação
+/programas	Retorna lista de programas instalados
+/historico	Envia histórico de navegação do cliente
+/usuario	Retorna o usuário logado
+🛠️ Tecnologias Utilizadas
+
+Python 3.x
+
+Sockets TCP
+
+Threading
+
+Telegram Bot API
+
+Subprocess / platform / os
+
+Requests
+
+time & socket
+
+🚀 Como Executar o Projeto
+1️⃣ Configurar o Servidor
+git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
+cd SEU_REPOSITORIO
 pip install -r requirements.txt
-Configure o token do bot no arquivo config.py:
-TOKEN = "SEU_TOKEN_AQUI"
-Execute o servidor:
-python servidor-bot.py
-2. Configurar os Clientes
 
-Em cada máquina cliente, clone o repositório.
-Configure o endereço do servidor no arquivo config.py:
+
+Configure o token do bot em config.py:
+
+TOKEN = "SEU_TOKEN_AQUI"
+
+
+Execute o servidor:
+
+python servidor-bot.py
+
+2️⃣ Configurar os Clientes
+
+Em cada máquina cliente:
+
+git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
+
+
+Edite o arquivo config.py:
+
 SERVER_IP = "IP_DO_SERVIDOR"
 SERVER_PORT = 5000
+
+
 Execute o cliente:
+
 python cliente.py
-3. Interagir via Telegram
 
-No Telegram, encontre o bot thaynahakanbot
-Envie /start para iniciar a comunicação.
-Utilize os comandos disponíveis para interagir com o sistema.
-Demonstração do Projeto
+3️⃣ Interagir via Telegram
 
-Para demonstrar o funcionamento do sistema:
+Abra o Telegram.
 
-Execute o servidor.
-Conecte pelo menos um cliente.
-Envie comandos pelo bot do Telegram.
-Verifique as respostas retornadas no Telegram.
-Considerações Finais
+Procure pelo bot @thaynahakanbot.
 
-Este projeto fornece um ambiente de monitoramento remoto simples e eficiente utilizando sockets TCP e Telegram. A abordagem facilita o controle de múltiplos clientes de forma centralizada e segura.
+Envie /start.
+
+Use os comandos para controlar os clientes.
+
+🎥 Demonstração
+
+Passos para demonstrar:
+
+Inicie o servidor.
+
+Conecte ao menos um cliente.
+
+Abra o bot no Telegram.
+
+Execute comandos como /info, /status, /clientes, etc.
+
+Veja as respostas do sistema em tempo real.
+
+📝 Considerações Finais
+
+Este projeto oferece uma base sólida para um sistema de monitoramento remoto, utilizando ferramentas simples (sockets + Telegram) e arquitetura modular. É ideal para estudos, laboratórios e aplicações personalizadas.
+
+Sinta-se à vontade para contribuir, sugerir melhorias e adaptar ao seu próprio cenário! 🚀
 ![imagembot](https://github.com/user-attachments/assets/9c3960fd-7c3c-450c-ac18-c4c7937d2b43)
 
 
