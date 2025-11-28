@@ -153,9 +153,7 @@ Este projeto oferece uma arquitetura sólida e prática para monitoramento remot
 
 Sinta-se à vontade para contribuir, abrir issues, criar melhorias e adaptar à sua necessidade.
 
-
-
-
+````
 ![imagembot](https://github.com/user-attachments/assets/9c3960fd-7c3c-450c-ac18-c4c7937d2b43)
 
 
