@@ -84,3 +84,6 @@ Verifique as respostas retornadas no Telegram.
 Considerações Finais
 
 Este projeto fornece um ambiente de monitoramento remoto simples e eficiente utilizando sockets TCP e Telegram. A abordagem facilita o controle de múltiplos clientes de forma centralizada e segura.
+![imagembot](https://github.com/user-attachments/assets/9c3960fd-7c3c-450c-ac18-c4c7937d2b43)
+
+
